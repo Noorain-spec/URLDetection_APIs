@@ -24,14 +24,17 @@ git clone https://github.com/...
 cd flask-api
 
 ## Virtual environment and install dependenceies
+
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 ## Run app locally
+
 python app.py
 
 ## API Endpoints
+
 1. GET /                ---> Health check route.
 2. POST /predictions    ---> Create a new URL prediction.
 {
