@@ -1,0 +1,17 @@
+---> Endpoint: /predict
+$response = Invoke-WebRequest -Uri "http://127.0.0.1:5000/predict" `  -Method POST `  -Headers @{ "Content-Type" = "application/json" } `  -Body '{"url": "http://example.com/test"}' `  -UseBasicParsing 
+
+---> Endpoint: /predictions
+(Invoke-WebRequest -Uri "http://127.0.0.1:5000/predictions" -UseBasicParsing).Content | Out-File "all_predictions.json"                                   
+
+---> Endpoint: /predictions/url
+(Invoke-WebRequest -Uri "http://127.0.0.1:5000/predictions/https://google.com" -UseBasicParsing).Content | Out-File "all_prediction_by_url.json" 
+
+---> Endpoint: /predictions/id
+(Invoke-WebRequest -Uri "http://127.0.0.1:5000/predictions/1" -UseBasicParsing).Content | Out-File "prediction_by_id.json"                               
+
+---> Endpoint: /predictions/url (PUT)
+$body = '{"prediction": "UpdatedPrediction"}'; $response = Invoke-WebRequest -Uri "http://127.0.0.1:5000/predictions/1" -Method Put -Headers @{ "Content-Type" = "application/json" } -Body $body -UseBasicParsing; $response.Content | Out-File "update_ID#1.json"
+
+---> Endpoint: /predictions/id (DELETE)
+$response = Invoke-WebRequest -Uri "http://127.0.0.1:5000/predictions/9" -Method Delete -UseBasicParsing; $response.Content | Out-File "deleted_ID#9.json" 
